@@ -1,65 +1,91 @@
-import Image from "next/image";
+"use client";
+import Button from "@/my-components/button";
+import Heading from "@/my-components/heading";
+import IconWrapper from "@/my-components/iconWrapper";
+// import NavBar from "@/my-components/navBar";
+import { TiArrowDown } from "react-icons/ti";
+import { useRef } from "react";
 
-export default function Home() {
+import { motion, useScroll, useTransform } from "framer-motion";
+import Home from "./homePage.jsx/page";
+
+export default function Page() {
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const width = useTransform(scrollYProgress, [0, 0.5], ["5%", "100%"]);
+
+  const borderRadius = useTransform(
+    scrollYProgress,
+    [0, 0.5],
+    ["100px", "1.5678rem"],
+  );
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* <NavBar /> */}
+
+      <section className="mx-auto w-full max-w-437 px-8 lg:px-12 pt-52">
+        {/* heading and paragraph */}
+        <div className="text-center">
+          <Heading
+            header={
+              <>
+                <span className="block">ROAR IN THE</span>
+                <span className="block"> DIGITAL WILDERNESS</span>
+              </>
+            }
+            headstyle="tracking-widest"
+            subheading={
+              <>
+                <span className="block">
+                  WE ROAR WITH SUCCESS, DELIVERING THE TRIONN®
+                </span>
+                <span className="block">
+                  THROUGH VERSATILE DESIGN, BRANDING AND THE LATEST
+                </span>
+                <span className="block">
+                  TECH DEVELOPMENT TO COMPANIES.
+                </span>
+              </>
+            }
+            substyle="mt-4 tracking-widest"
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        {/* scroll down arrow */}
+        <div className="flex justify-center">
+          <IconWrapper className="w-8 h-8 mt-4">
+            <TiArrowDown className="text-lg" />
+          </IconWrapper>
         </div>
-      </main>
-    </div>
+        {/* two button */}
+        <div className="flex flex-col sm:flex-row justify-between gap-4">
+          <Button content="Explore Work" cstyle="mt-4 w-full sm:w-auto" />
+          <Button content="Get In Touch" cstyle="mt-4 w-full sm:w-auto" />
+        </div>
+        {/* video */}
+        <div ref={containerRef} className="ti_banner flex justify-center py-4">
+          <motion.div
+            style={{ width, borderRadius, overflow: "hidden" }}
+            className="mx-auto"
+          >
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{ width: "100%", height: "auto", display: "block" }}
+            >
+              <source src="/assets/intro-video.mp4" type="video/mp4" />
+            </video>
+          </motion.div>
+        </div>
+      </section>
+      {/* other pages */}
+      <Home />
+    </>
   );
 }
