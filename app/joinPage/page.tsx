@@ -47,14 +47,14 @@ export default function Join() {
           headstyle="text-center"
         />
 
-        <div className="flex flex-col gap-10 text-5xl">
-          {socialLinks.map(({ name, href, iconSrc }) => (
+        <div className="flex flex-col gap-10 sm:text-2xl lg:text-5xl">
+          {socialLinks.map(({ name, href, iconSrc}) => (
             <a
               key={name}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-between border-b border-gray-600 w-4xl pb-4"
+              className="flex items-center justify-between border-b border-gray-600 pb-4"
             >
               <span>{name}</span>
 
@@ -63,6 +63,7 @@ export default function Join() {
                 alt={`${name} icon`}
                 width={52}
                 height={52}
+                className="w-8 h-8 sm:w-10 sm:h-10"
               />
             </a>
           ))}
